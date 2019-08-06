@@ -1,0 +1,22 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Main</title>
+  <script src="app.js"></script>
+</head>
+
+<body>
+  <script>
+    var app = Elm.Main.init();
+
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./sw.js', {scope: './'})
+      .then((reg) => {
+        console.log('Registration succeeded. Scope: ' + reg.scope);
+      }).catch((error) => {
+        console.log('reg failed, error: ' + error);
+      });
+    };
+  </script>
+</body>
+</html>

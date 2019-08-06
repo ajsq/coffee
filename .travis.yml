@@ -1,0 +1,11 @@
+language: elm
+elm:
+  - 0.19.0
+before_deploy: elm make --optimize src/Main.elm --output=out/app.js
+deploy:
+  provider: pages
+  github_token: $GITHUB_TOKEN
+  local_dir: out
+  skip_cleanup: true
+  on:
+    branch: master
