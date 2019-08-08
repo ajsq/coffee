@@ -18,6 +18,7 @@ import Html
         )
 import Html.Attributes exposing (class, colspan)
 import Html.Events exposing (onClick)
+import Search exposing (SearchField)
 import Tachyons exposing (classes)
 import Tachyons.Classes as T
 
@@ -41,6 +42,7 @@ type alias Model =
     { floors : List Floor
     , sortOption : SortOption
     , sortDirection : SortDirection
+    , searchBy : SearchField
     }
 
 
@@ -60,11 +62,13 @@ initModel =
     { floors = floorList
     , sortOption = FloorNum
     , sortDirection = Up
+    , searchBy = SearchField False ""
     }
 
 
 type Msg
     = ToggleSort SortOption
+    | SearchMsg Search.Msg
 
 
 update : Msg -> Model -> ( Model, Cmd msg )
@@ -77,6 +81,14 @@ update msg model =
             else
                 ( { model | sortOption = sortOption, sortDirection = Up }, Cmd.none )
 
+        SearchMsg submsg ->
+            ( { model
+                | searchBy =
+                    Search.update submsg model.searchBy
+              }
+            , Cmd.none
+            )
+
 
 docView : Model -> Browser.Document Msg
 docView model =
@@ -87,12 +99,23 @@ docView model =
 
 view : Model -> Html.Html Msg
 view model =
+    let
+        displayFloors =
+            sortedFloors model
+                |> (if model.searchBy.enabled then
+                        filterFloors model.searchBy.search
+
+                    else
+                        identity
+                   )
+    in
     div [ classes [ T.center, T.mw8, T.sans_serif ] ]
         [ div [ classes [ T.lh_title, T.f1, T.pl3 ] ] [ text "F5 Tower Coffee" ]
+        , Search.view model.searchBy |> Html.map SearchMsg
         , table
             [ classes [ T.pa2 ] ]
             ([ tr [ classes [ T.striped__light_gray ] ] (tableHeaders model) ]
-                ++ List.map floorRow (sortedFloors model)
+                ++ List.map floorRow displayFloors
             )
         , css
         ]
@@ -213,3 +236,14 @@ sortUpIcon =
 sortDownIcon : Html.Html Msg
 sortDownIcon =
     Icon.viewIcon Icon.sortDown
+
+
+filterFloors : String -> List Floor -> List Floor
+filterFloors search floors =
+    List.filter
+        (\a ->
+            String.concat [ a.espresso.roaster, a.drip.roaster ]
+                |> String.toLower
+                |> String.contains (String.toLower search)
+        )
+        floors
