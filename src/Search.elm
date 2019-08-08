@@ -38,7 +38,7 @@ view model =
                 , onCheck Toggle
                 ]
                 []
-            , span [ classes [ T.pl1 ] ] [ text "Search" ]
+            , span [ classes [ T.pl1 ] ] [ text "Search Roasters" ]
             ]
          ]
             ++ (if model.enabled then
