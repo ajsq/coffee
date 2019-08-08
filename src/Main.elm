@@ -136,7 +136,7 @@ tableHeaders sort =
         ]
 
 
-viewMachine : Machine -> List (Html.Html Msg)
+viewMachine : Machine -> Html.Html Msg
 viewMachine machine =
     [ div
         [ classes
@@ -154,14 +154,15 @@ viewMachine machine =
         [ classes [ T.fl, T.w_50, T.tc ] ]
         [ text machine.right ]
     ]
+        |> td []
 
 
 floorRow : Floor -> Html.Html Msg
 floorRow floor =
     tr [ classes [ T.striped__light_gray ] ]
         [ td [ classes [ T.tc ] ] [ text (String.fromInt floor.floor) ]
-        , td [] (viewMachine floor.espresso)
-        , td [] (viewMachine floor.drip)
+        , lazy viewMachine floor.espresso
+        , lazy viewMachine floor.drip
         ]
 
 
