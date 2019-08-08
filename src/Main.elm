@@ -18,6 +18,8 @@ import Html
         )
 import Html.Attributes exposing (class, colspan)
 import Html.Events exposing (onClick)
+import Html.Keyed as Keyed
+import Html.Lazy exposing (lazy)
 import Search exposing (SearchField)
 import Tachyons exposing (classes)
 import Tachyons.Classes as T
@@ -40,9 +42,14 @@ init _ =
 
 type alias Model =
     { floors : List Floor
-    , sortOption : SortOption
-    , sortDirection : SortDirection
+    , sort : Sort
     , searchBy : SearchField
+    }
+
+
+type alias Sort =
+    { option : SortOption
+    , direction : SortDirection
     }
 
 
@@ -60,8 +67,7 @@ type SortDirection
 initModel : Model
 initModel =
     { floors = floorList
-    , sortOption = FloorNum
-    , sortDirection = Up
+    , sort = Sort FloorNum Up
     , searchBy = SearchField False ""
     }
 
@@ -75,11 +81,11 @@ update : Msg -> Model -> ( Model, Cmd msg )
 update msg model =
     case msg of
         ToggleSort sortOption ->
-            if sortOption == model.sortOption then
-                ( { model | sortDirection = invertUpDown model.sortDirection }, Cmd.none )
+            if sortOption == model.sort.option then
+                ( { model | sort = invertUpDownSort model.sort }, Cmd.none )
 
             else
-                ( { model | sortOption = sortOption, sortDirection = Up }, Cmd.none )
+                ( { model | sort = Sort sortOption Up }, Cmd.none )
 
         SearchMsg submsg ->
             ( { model
@@ -92,7 +98,7 @@ update msg model =
 
 docView : Model -> Browser.Document Msg
 docView model =
-    { title = "main"
+    { title = "F5 Tower Coffee"
     , body = [ view model ]
     }
 
@@ -111,22 +117,23 @@ view model =
     in
     div [ classes [ T.center, T.mw8, T.sans_serif ] ]
         [ div [ classes [ T.lh_title, T.f1, T.pl3 ] ] [ text "F5 Tower Coffee" ]
-        , Search.view model.searchBy |> Html.map SearchMsg
+        , lazy Search.view model.searchBy |> Html.map SearchMsg
         , table
             [ classes [ T.pa2 ] ]
-            ([ tr [ classes [ T.striped__light_gray ] ] (tableHeaders model) ]
-                ++ List.map floorRow displayFloors
-            )
+            [ lazy tableHeaders model.sort
+            , lazy keyedFloorRows displayFloors
+            ]
         , css
         ]
 
 
-tableHeaders : Model -> List (Html.Html Msg)
-tableHeaders model =
-    [ th [ classes [ T.pa1 ] ] [ text "Floor", iconFor model FloorNum ]
-    , th [ classes [ T.pa1 ] ] [ text "Espresso", iconFor model Espresso ]
-    , th [ classes [ T.pa1 ] ] [ text "Drip", iconFor model Drip ]
-    ]
+tableHeaders : Sort -> Html.Html Msg
+tableHeaders sort =
+    tr [ classes [ T.bg_lightest_blue ] ]
+        [ th [ classes [ T.pa1 ] ] [ text "Floor", iconFor sort FloorNum ]
+        , th [ classes [ T.pa1 ] ] [ text "Espresso", iconFor sort Espresso ]
+        , th [ classes [ T.pa1 ] ] [ text "Drip", iconFor sort Drip ]
+        ]
 
 
 viewMachine : Machine -> List (Html.Html Msg)
@@ -158,32 +165,28 @@ floorRow floor =
         ]
 
 
-floorList : List Floor
-floorList =
-    [ Floor 35
-        (Machine "Fidalgo" "Islands Espresso" "Decaf Espresso")
-        (Machine "Stumptown" "House Blend" "else")
-    , Floor 34
-        (Machine "Cafe Vita" "Theo Blend" "Novacella Decaf")
-        (Machine "One Cup" "Queen City" "Decaf Republic of Cascadia")
-    , Floor 41
-        (Machine "Caffe Umbria" "Arco Etrusco" "Mezzanotte Blend")
-        (Machine "Peet's" "House Blend" "Decaf House Blend")
-    ]
+keyedFloorRows : List Floor -> Html.Html Msg
+keyedFloorRows list =
+    List.map
+        (\f ->
+            ( f.floor |> String.fromInt, lazy floorRow f )
+        )
+        list
+        |> Keyed.node "tbody" []
 
 
 sortedFloors : Model -> List Floor
 sortedFloors model =
     let
         transform =
-            case model.sortDirection of
+            case model.sort.direction of
                 Up ->
                     identity
 
                 Down ->
                     List.reverse
     in
-    case model.sortOption of
+    case model.sort.option of
         FloorNum ->
             List.sortBy .floor model.floors
                 |> transform
@@ -197,14 +200,14 @@ sortedFloors model =
                 |> transform
 
 
-iconFor : Model -> SortOption -> Html.Html Msg
-iconFor model option =
+iconFor : Sort -> SortOption -> Html.Html Msg
+iconFor sort option =
     Html.a [ classes [ T.pl2 ], onClick (ToggleSort option) ]
-        [ if model.sortOption /= option then
+        [ if sort.option /= option then
             sortIcon
 
           else
-            case model.sortDirection of
+            case sort.direction of
                 Up ->
                     sortUpIcon
 
@@ -221,6 +224,11 @@ invertUpDown sortDirection =
 
         Down ->
             Up
+
+
+invertUpDownSort : Sort -> Sort
+invertUpDownSort sort =
+    { sort | direction = invertUpDown sort.direction }
 
 
 sortIcon : Html.Html Msg
