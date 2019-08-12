@@ -85,6 +85,12 @@ floorList =
     , Floor 32
         fidalgo_centro_organic
         sbc_sig4_decaf
+    , Floor 46
+        zoka_double_paladino
+        mukilteo_hippie_decaf
+    , Floor 47
+        vita_theo_novacella
+        callies_house_decaf
     ]
 
 
