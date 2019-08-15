@@ -1,26 +1,13 @@
 module Floors exposing (Coffee, Floor, Machine, floorList)
 
+-- FLOOR LIST
+
 
 type alias Floor =
     { floor : Int
     , espresso : Machine
     , drip : Machine
     }
-
-
-type alias Machine =
-    { roaster : String
-    , left : Coffee
-    , right : Coffee
-    }
-
-
-type alias Coffee =
-    String
-
-
-type alias Roaster =
-    String -> String -> Machine
 
 
 floorList : List Floor
@@ -94,9 +81,15 @@ floorList =
     ]
 
 
-fidalgo : Roaster
-fidalgo =
-    Machine "Fidalgo Coffee Roasters"
+
+-- MACHINES
+
+
+type alias Machine =
+    { roaster : String
+    , left : Coffee
+    , right : Coffee
+    }
 
 
 fidalgo_islands_organic : Machine
@@ -112,16 +105,6 @@ fidalgo_double_organic =
 fidalgo_centro_organic : Machine
 fidalgo_centro_organic =
     fidalgo "Organic Centro" "Organic Decaf"
-
-
-stumptown : Roaster
-stumptown =
-    Machine "Stumptown Coffee Roasters"
-
-
-sbc : Roaster
-sbc =
-    Machine "Seattle's Best Coffee"
 
 
 sbc_sig4_decaf : Machine
@@ -147,11 +130,6 @@ vita_theo_novacella =
 onecup_queen_cascadia : Machine
 onecup_queen_cascadia =
     Machine "One Cup" "Queen City" "Decaf Republic of Cascadia"
-
-
-peets : Roaster
-peets =
-    Machine "Peet's"
 
 
 peets_dickasons_decaf : Machine
@@ -182,3 +160,39 @@ victrola_empire_deco =
 callies_house_decaf : Machine
 callies_house_decaf =
     Machine "callie's" "House Blend" "Decaf"
+
+
+
+-- ROASTERS
+
+
+type alias Roaster =
+    String -> String -> Machine
+
+
+peets : Roaster
+peets =
+    Machine "Peet's"
+
+
+stumptown : Roaster
+stumptown =
+    Machine "Stumptown Coffee Roasters"
+
+
+sbc : Roaster
+sbc =
+    Machine "Seattle's Best Coffee"
+
+
+fidalgo : Roaster
+fidalgo =
+    Machine "Fidalgo Coffee Roasters"
+
+
+
+-- COFFEES
+
+
+type alias Coffee =
+    String
