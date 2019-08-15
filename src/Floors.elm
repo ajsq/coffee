@@ -14,7 +14,7 @@ floorList : List Floor
 floorList =
     [ Floor 35
         fidalgo_islands_organic
-        (stumptown "House Blend" "Trapper Creek Decaf")
+        stumptown_house_trapper
     , Floor 34
         vita_theo_novacella
         onecup_queen_cascadia
@@ -29,7 +29,7 @@ floorList =
         starbucks_pike_place
     , Floor 38
         fidalgo_centro_organic
-        (sbc "6th Avenue Bistro" "Decaf Portside Blend")
+        sbc_6th_portside
     , Floor 39
         victrola_empire_deco
         callies_house_decaf
@@ -41,7 +41,7 @@ floorList =
         onecup_queen_cascadia
     , Floor 43
         fidalgo_double_organic
-        (peets "House Blend" "Decaf House Blend")
+        peets_house_decaf
     , Floor 45
         fidalgo_double_organic
         stumptown_holler_trapper
@@ -112,9 +112,19 @@ sbc_sig4_decaf =
     sbc "Signature Blend No 4" "Decaf Portside Blend"
 
 
+sbc_6th_portside : Machine
+sbc_6th_portside =
+    sbc "6th Avenue Bistro" "Decaf Portside Blend"
+
+
 stumptown_holler_trapper : Machine
 stumptown_holler_trapper =
     stumptown "Holler Mountain Organic" "Trapper Creek Decaf"
+
+
+stumptown_house_trapper : Machine
+stumptown_house_trapper =
+    stumptown "House Blend" "Trapper Creek Decaf"
 
 
 umbria_etrusco_mezzanote : Machine
@@ -135,6 +145,11 @@ onecup_queen_cascadia =
 peets_dickasons_decaf : Machine
 peets_dickasons_decaf =
     peets "Major Dickason's Blend" "Decaf House Blend"
+
+
+peets_house_decaf : Machine
+peets_house_decaf =
+    peets "House Blend" "Decaf House Blend"
 
 
 starbucks_pike_place : Machine
@@ -167,7 +182,7 @@ callies_house_decaf =
 
 
 type alias Roaster =
-    String -> String -> Machine
+    Coffee -> Coffee -> Machine
 
 
 peets : Roaster
