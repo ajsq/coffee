@@ -1,6 +1,6 @@
 module Search exposing (Msg(..), SearchField, update, view)
 
-import Html exposing (Html, div, input, span, text)
+import Html exposing (Html, div, input, label, span, text)
 import Html.Attributes exposing (checked, placeholder, type_, value)
 import Html.Events exposing (onCheck, onInput)
 import Tachyons exposing (classes)
@@ -31,7 +31,7 @@ update msg model =
 view : SearchField -> Html.Html Msg
 view model =
     div [ classes [ T.cf, T.pl2 ] ]
-        ([ div [ classes [ T.fl ] ]
+        ([ label [ classes [ T.fl ] ]
             [ input
                 [ type_ "checkbox"
                 , checked model.enabled
