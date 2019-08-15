@@ -8,6 +8,6 @@
   },
   "scripts": {
     "dev": "parcel index.html",
-    "build": "parcel build index.html --detailed-report"
+    "build": "parcel build index.html --detailed-report && cp icon/favicon.ico dist/favicon.ico"
   }
 }
