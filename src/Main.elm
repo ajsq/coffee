@@ -148,7 +148,7 @@ viewMachine machine =
         ]
         [ text machine.roaster ]
     , div
-        [ classes [ T.fl, T.w_100, T.w_50_ns , T.tc ] ]
+        [ classes [ T.fl, T.w_100, T.w_50_ns , T.tc, T.bb, T.bw1, T.bn_ns ] ]
         [ text machine.left ]
     , div
         [ classes [ T.fl, T.w_100, T.w_50_ns, T.tc ] ]
