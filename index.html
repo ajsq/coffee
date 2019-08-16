@@ -21,10 +21,10 @@
       const sw_loc = '/sw.js';
       navigator.serviceWorker.register(sw_loc)
         .then(registration => {
-          Console.log("Service Worker registered")
+          console.log("Service Worker registered")
         })
         .catch(error => {
-          Console.log("Service Worker reg failed: " + error);
+          console.log("Service Worker reg failed: " + error);
         });
     });
   }
