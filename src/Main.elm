@@ -4,7 +4,6 @@ import Browser
 import Floors exposing (..)
 import FontAwesome.Icon as Icon
 import FontAwesome.Solid as Icon
-import FontAwesome.Styles exposing (css)
 import Html
     exposing
         ( div
@@ -123,7 +122,6 @@ view model =
             [ lazy tableHeaders model.sort
             , lazy keyedFloorRows displayFloors
             ]
-        , css
         ]
 
 
