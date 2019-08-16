@@ -15,5 +15,19 @@
 <body>
   <main></main>
   <script src="./index.js"></script>
+  <script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      const sw_loc = '/sw.js';
+      navigator.serviceWorker.register(sw_loc)
+        .then(registration => {
+          Console.log("Service Worker registered")
+        })
+        .catch(error => {
+          Console.log("Service Worker reg failed: " + error);
+        });
+    });
+  }
+  </script>
 </body>
 </html>

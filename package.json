@@ -4,10 +4,17 @@
     "elm-hot": "^1.1.2",
     "node-elm-compiler": "^5.0.4",
     "parcel-bundler": "^1.12.3",
+    "parcel-plugin-sw-cache": "^0.3.1",
     "tachyons": "4.10.0"
   },
   "scripts": {
     "dev": "parcel index.html",
     "build": "parcel build index.html --detailed-report && cp icon/favicon.ico dist/favicon.ico"
+  },
+  "cache": {
+    "disablePlugin": false,
+    "inDev": false,
+    "strategy": "default",
+    "clearDist": true
   }
 }
