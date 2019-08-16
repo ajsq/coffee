@@ -15,6 +15,9 @@
     "disablePlugin": false,
     "inDev": false,
     "strategy": "default",
-    "clearDist": true
+    "clearDist": true,
+    "globPatterns": [
+      "**/*.{html,js,css,jpg,png,ico,webmanifest}"
+    ]
   }
 }
