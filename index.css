@@ -1,2 +1,4 @@
 @import "tachyons";
 @import "@fortawesome/fontawesome-free/css/svg-with-js.min.css";
+
+body {background-color: #f6fffe;}
