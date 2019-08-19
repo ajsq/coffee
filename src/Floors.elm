@@ -27,14 +27,8 @@ type alias Coffee =
 
 floorList : D.Value -> List Floor
 floorList rawFloors =
-    let
-        res =
-            D.decodeValue floorListDecoder rawFloors
-
-        ok =
-            Debug.log "decoded" (Debug.toString res)
-    in
-    Result.withDefault [] res
+    D.decodeValue floorListDecoder rawFloors
+        |> Result.withDefault []
 
 
 floorListDecoder : D.Decoder (List Floor)
