@@ -19,12 +19,13 @@ import Html.Attributes exposing (class, colspan)
 import Html.Events exposing (onClick)
 import Html.Keyed as Keyed
 import Html.Lazy exposing (lazy)
+import Json.Decode as JD
 import Search exposing (SearchField)
 import Tachyons exposing (classes)
 import Tachyons.Classes as T
 
 
-main : Program () Model Msg
+main : Program JD.Value Model Msg
 main =
     Browser.document
         { view = docView
@@ -34,9 +35,9 @@ main =
         }
 
 
-init : () -> ( Model, Cmd msg )
-init _ =
-    ( initModel, Cmd.none )
+init : JD.Value -> ( Model, Cmd msg )
+init rawFloors =
+    ( initModel rawFloors, Cmd.none )
 
 
 type alias Model =
@@ -63,9 +64,9 @@ type SortDirection
     | Down
 
 
-initModel : Model
-initModel =
-    { floors = floorList
+initModel : JD.Value -> Model
+initModel rawFloors =
+    { floors = floorList rawFloors
     , sort = Sort FloorNum Up
     , searchBy = SearchField False ""
     }
