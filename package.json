@@ -8,7 +8,8 @@
     "node-elm-compiler": "^5.0.4",
     "parcel-bundler": "^1.12.3",
     "parcel-plugin-sw-cache": "^0.3.1",
-    "tachyons": "4.10.0"
+    "tachyons": "4.10.0",
+    "@keisisqrl/parcel-plugin-csv": "^1.0"
   },
   "scripts": {
     "dev": "parcel index.html",

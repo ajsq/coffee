@@ -755,6 +755,13 @@
   resolved "https://registry.yarnpkg.com/@iarna/toml/-/toml-2.2.3.tgz#f060bf6eaafae4d56a7dac618980838b0696e2ab"
   integrity sha512-FmuxfCuolpLl0AnQ2NHSzoUKWEJDFl63qXjzdoWBVyFCXzMGm1spBzk7LeHNoVCiWCF7mRVms9e6jEV9+MoPbg==
 
+"@keisisqrl/parcel-plugin-csv@^1.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@keisisqrl/parcel-plugin-csv/-/parcel-plugin-csv-1.0.0.tgz#78c0a8050c2f21194daa423ebf529272ddd31ca8"
+  integrity sha512-XXXxkhyBm359ntuK0Kki+UJuJFhUqsQq4W92aTxaxTKYv0JnCCi7+r+HrOO4hgtlnGx8mZVXKsu7Jx0CFCXDkw==
+  dependencies:
+    csv-parse "^4.4.5"
+
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/@mrmlnc/readdir-enhanced/-/readdir-enhanced-2.2.1.tgz#524af240d1a360527b730475ecfa1344aa540dde"
@@ -1886,6 +1893,11 @@ cssstyle@^1.2.2:
   integrity sha512-GBrLZYZ4X4x6/QEoBnIrqb8B/f5l4+8me2dkom/j1Gtbxy0kBv6OGzKuAsGM75bkGwGAFkt56Iwg28S3XTZgSA==
   dependencies:
     cssom "0.3.x"
+
+csv-parse@^4.4.5:
+  version "4.4.5"
+  resolved "https://registry.yarnpkg.com/csv-parse/-/csv-parse-4.4.5.tgz#383255357a766c220be049e4f1f2c3016eb9ac66"
+  integrity sha512-koPV9m9AjNJCK3ig4ErgRJalZsLxWI7NP0Fd3+CO9hgDZt3FSljTeESnfWTbyRc8qk/3/LgX1s5naDqLxiuK9w==
 
 dashdash@^1.12.0:
   version "1.14.1"
