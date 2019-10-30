@@ -2,7 +2,7 @@
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.10.1",
     "@keisisqrl/parcel-plugin-csv": "^1.0",
-    "elm": "^0.19.0-no-deps",
+    "elm": "^0.19.1-latest",
     "elm-format": "^0.8.2",
     "elm-hot": "^1.1.2",
     "elm-test": "^0.19.0-rev6",
